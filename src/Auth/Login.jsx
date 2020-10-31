@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "./Login.css";
 import { connect } from 'react-redux'
-import { login } from '../../actions/authActions'
+import { login } from '../actions/authActions'
 import PropTypes from 'prop-types'
 
 class LoginPage extends Component {
@@ -18,14 +18,13 @@ class LoginPage extends Component {
   };
 
   handleSubmit = async (e) => {
-    const { history, handleSignupOrLogin, login } = this.props;
+    const { history, login } = this.props;
     e.preventDefault();
     try {
       // await authService.login(this.state);
       await login(this.state)
       // Let <App> know a user has signed up!
-      handleSignupOrLogin();
-      history.push("/");
+      history.push('/');
     } catch (err) {
       // Use a modal or toast in your apps instead of alert
       alert('Invalid Credentials!');

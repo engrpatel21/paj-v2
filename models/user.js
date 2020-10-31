@@ -1,12 +1,23 @@
 const mongoose = require('mongoose');
 const bcrypt = require("bcrypt");
+const Schema = mongoose.Schema
 
 const SALT_ROUNDS = 6;
+
+const messageSchema = new Schema({
+  createdby: { type: Schema.Types.ObjectId, ref: 'User'},
+  content: {type: String, default: 'Hello There'}
+})
 
 const userSchema = new mongoose.Schema({
   name: String,
   email: {type: String, required: true, lowercase: true, unique: true},
-  password: String
+  password: String,
+  avatar: {type: String, default: `https://picsum.photos/200`},
+  friends: [{ type: Schema.Types.ObjectId, ref: 'User'}],
+  messages: [messageSchema],
+  bio: String,
+  projects: [{type: Schema.Types.ObjectId, ref:'Project'}]
 }, {
   timestamps: true
 });

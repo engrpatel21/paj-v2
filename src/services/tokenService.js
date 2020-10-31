@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 function setToken(token) {
   localStorage.setItem("token", token);
 }

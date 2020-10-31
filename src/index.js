@@ -2,13 +2,15 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./index.css";
-import App from "./pages/App/App";
+import App from "./App.jsx";
 import * as serviceWorker from "./serviceWorker";
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
 import { Provider } from 'react-redux'
 import rootReducer from './reducers/rootReducer'
 import 'semantic-ui-css/semantic.min.css'
+
+
 
 
 const initialState = {}

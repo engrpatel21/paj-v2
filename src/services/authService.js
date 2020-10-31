@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import tokenService from "./tokenService";
 
 const BASE_URL = '/api/auth/';
