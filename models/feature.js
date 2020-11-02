@@ -9,7 +9,7 @@ const taskSchema = new Schema({
 },{timestamps: true})
 
 const featureSchema = new Schema({
-    feature: String,
+    name: String,
     description: String,
     featureStatus:{type: String, enum: ['In Progress', 'Completed', 'Backlog'], default: 'Backlog'},
     tasks: [taskSchema],

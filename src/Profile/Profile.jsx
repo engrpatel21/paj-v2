@@ -21,14 +21,14 @@ class Profile extends Component {
                                 <UserCard/>
                             </Grid.Column>
                             <Grid.Column width={13}>
-                                <ProjectList />
+                                <ProjectList history={this.props.history}/>
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>
                 </Container>
                 
             </>
-         );
+        );
     }
 }
  

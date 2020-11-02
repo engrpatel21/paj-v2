@@ -4,7 +4,7 @@ import {addProject} from '../actions/projectActions'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-class CreateProject extends Component {
+class CreateFeature extends Component {
     state = { 
         name:'',
         description: ''
@@ -33,7 +33,7 @@ class CreateProject extends Component {
                 <label>Project Name</label>
                     <Input
                         fluid={true}
-                        placeholder='Project Name'
+                        placeholder='Feature Name'
                         name='name'
                         value={this.state.name}
                         onChange={this.handleChange}
@@ -48,7 +48,7 @@ class CreateProject extends Component {
                     
             />
             <div>
-                <Button >Create Project</Button>
+                <Button >Create Feature</Button>
                 <Button content='Close' floated='right' right onClick={this.props.handleClose} />  
             </div>
         </Form>   
@@ -56,4 +56,4 @@ class CreateProject extends Component {
     }
 }
 
-export default connect(null, {addProject})(CreateProject);
+export default connect(null, {addProject})(CreateFeature);

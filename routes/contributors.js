@@ -4,9 +4,11 @@ const contributorCtrl = require('../controllers/contributors')
 /*---------- Protected Routes ----------*/
 router.use(require("../config/auth"));
 router.post('/:projectId', checkAuth, contributorCtrl.createContributor)
-router.get('/:projectId', checkAuth, contributorCtrl.index)
+
 router.delete('/:projectId/:contributorId/:userId', checkAuth, contributorCtrl.deleteContributor)
 router.put('/:contributorId', checkAuth, contributorCtrl.updateContributor)
+router.get('/projects', checkAuth, contributorCtrl.showLoggedInUserProjects)
+router.get('/:projectId', checkAuth, contributorCtrl.index)
 
 /*---------- Auth Checker ----------*/
 function checkAuth(req, res, next) {

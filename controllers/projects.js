@@ -1,5 +1,5 @@
 const Project = require('../models/project')
-const User = require('../models/user')
+const Contributor = require('../models/contributor')
 
 module.exports = {
     index,
@@ -16,7 +16,10 @@ function updateProject(req, res){
 
 function deleteProject(req, res){
     Project.findByIdAndDelete(req.params.projectId)
-    .then(project => res.json(project))
+    .then(project => {
+        Contributor.findOneAndDelete({projectId: req.params.projectId})
+            .then(()=> res.json(project))
+    })
 }
 
 function showProject(req,res){
@@ -31,12 +34,9 @@ function createProject(req, res){
     req.body.ownerName = req.user.name
     Project.create(req.body)
     .then(project =>
-        User.findById(req.user._id)
-        .then(user => {
-            user.projects.push(project._id)
-            user.save().then(()=> {
-                res.json(project)})
-        }))
+        Contributor.create({user: req.user._id, projectId: project._id, isAdmin: true})
+        .then(()=> res.json(project))
+    )
 }
 
 function index(req, res){

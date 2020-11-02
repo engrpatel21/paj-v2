@@ -57,9 +57,11 @@ class App extends Component {
         <Route
           exact
           path="/project"
-          render={({ history }) => (
+          render={({ history, match,location }) => (
             <ProjectDetails
               history={history}
+              match={match}
+              location={location}
             />
           )}
         />

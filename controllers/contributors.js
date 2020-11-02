@@ -1,13 +1,23 @@
 const Feature = require('../models/feature')
 const Contributor = require('../models/contributor')
 const User = require('../models/user')
-const feature = require('../models/feature')
+
 
 module.exports ={
     createContributor,
     deleteContributor,
     updateContributor,
-    index
+    index,
+    showLoggedInUserProjects
+}
+
+function showLoggedInUserProjects(req, res){
+    Contributor.find({user: req.user._id})
+    .select('projectId')
+    .populate('projectId')
+    .then(projects => {
+        res.json(projects)
+    })
 }
 
 function index(req, res){
@@ -70,8 +80,8 @@ function updateContributor(req, res){
 // }
 
 async function createContributor(req, res){
-
-    const user = await User.findOne({email: req.body.user})
+    if(req.body.email === req.user.email) return res.status(401)
+    const user = await User.findOne({email: req.body.email})
     const alreadyContributor = await Contributor.findOne({user: user._id, projectId: req.params.projectId})
     if(!alreadyContributor){
         req.body.user = user._id
@@ -85,5 +95,4 @@ async function createContributor(req, res){
     }else{
         res.status(200)
     }
-    
 }

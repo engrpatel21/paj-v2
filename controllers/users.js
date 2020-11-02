@@ -52,8 +52,8 @@ function addFriend(req, res){
 function showLoggedInUserProjects(req, res){
   User.findById(req.user._id)
   .populate('projects')
-  .then(user => 
-    res.json(user.projects)
+  .then(user => { 
+    res.json(user.projects)}
     )
 }
 

@@ -1,12 +1,16 @@
-import {ADD_PROJECT, ADD_PROJECT_FAIL, GET_USER_PROJECTS, LOADING} from './types'
-import tokenService from '../services/tokenService'
+import {
+    ADD_PROJECT, 
+    ADD_PROJECT_FAIL,
+    DELETE_PROJECT, 
+    GET_USER_PROJECTS, 
+    LOADING, 
+    config,
+    ADD_CONTRIBUTOR_FAIL} from './types'
 import axios from 'axios'
 
 
 
-const config ={
-    headers: {'content-type': 'application/json','Authorization': 'Bearer ' + tokenService.getToken()}
-}
+
 
 export const addProject = newProject => dispatch =>{
     dispatch(loading())
@@ -16,13 +20,27 @@ export const addProject = newProject => dispatch =>{
             payload: res.data
         }))
         .catch(err => dispatch({
-            type: ADD_PROJECT_FAIL
+            type: ADD_PROJECT_FAIL,
+            payload: err
+        }))
+}
+
+export const deleteProject = project_id => dispatch => {
+    dispatch(loading())
+    axios.delete(`/api/projects/${project_id}`, config)
+        .then(res => dispatch({
+            type: DELETE_PROJECT,
+            payload: project_id
+        }))
+        .catch(err => dispatch({
+            type: ADD_CONTRIBUTOR_FAIL,
+            payload: err
         }))
 }
 
 export const getUserProjects = () => dispatch => {
     dispatch(loading())
-    axios.get(`/api/users/projects`, config)
+    axios.get(`/api/contributors/projects`, config)
         .then(res => dispatch({
             type: GET_USER_PROJECTS,
             payload: res.data

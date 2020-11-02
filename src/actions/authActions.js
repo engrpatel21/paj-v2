@@ -12,7 +12,7 @@ const BASE_URL = '/api/auth'
 
 export const login = (cred) => dispatch => {
     const config = {
-        'Content-type': 'application/json'
+        'Content-Type': 'application/json'
     }
     axios.post(`${BASE_URL}/login`, cred, config)
         .then(res => {
@@ -30,7 +30,7 @@ export const login = (cred) => dispatch => {
 
 export const signup = (cred) => dispatch => {
     const config = {
-        'Content-type': 'application/json'
+        'Content-Type': 'application/json'
     }
     axios.post(`${BASE_URL}/signup`, cred, config)
         .then(res => dispatch({

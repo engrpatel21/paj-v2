@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const User = require('./user')
 const Schema = mongoose.Schema
 
 
@@ -17,6 +18,19 @@ const projectSchema = new Schema({
     isPublic: {type: Boolean, default: false}
 
 },{timestamps: true})
+
+projectSchema.post('deleteOne', document => {
+    const projectId = document._id
+    User.find({ projects: {$in: [projectId]} })
+        .then( users => {
+            Promise.all(
+                users.map(user => 
+                    User.findOneAndUpdate( user._id, { $pull: { projects: projectId}}, {new: true})
+                ),
+                users.save()
+            )
+        })
+})
 
 
 module.exports = mongoose.model('Project', projectSchema)
